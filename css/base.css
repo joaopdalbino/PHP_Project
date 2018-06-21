@@ -1,0 +1,194 @@
+html, body, span, p, form, img, a, ul, ol, li, table, tr, td, div{
+margin: 0;
+padding: 0; 
+border:none; 
+outline:none;
+list-style-type:none;
+}
+
+html, body{
+  height: 100%;
+	width: 100%;
+	margin: 0;
+  padding: 0;
+  background-color:#FFF;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: #c0c0c0;
+}
+a:link 
+{ 
+ text-decoration:none; 
+} 
+
+h1,
+h3,
+p,
+a,
+div,
+li {
+    font-family: 'Ubuntu', 'Verdana';
+    color: #FFFFFF;
+}
+
+header {
+	background-attachment: fixed;
+}
+
+#wrap {
+    height: auto !important;
+    width:100%;
+    margin: 0 auto;
+    min-height: 100%
+    display: block;
+}
+#menu{
+   margin: 0;
+   top: 0;left: 0;
+   width: 100%; 
+   height: 3.4rem; 
+   padding-top: 1%;
+   margin-bottom: 3%;
+   background-color: rgb(48, 64, 79);
+   position:fixed;
+   z-index:1000;  
+}
+
+#menu h3 { margin-top: -10px; float: left; margin-left: 20px; font-size: 50px; }
+.menulinks { float: right; margin-top: 0; }
+.container {width: 90%;}
+
+.menu_central{
+    position: absolute;
+    width: 300px;
+    height: auto;
+    z-index: 15;
+    top: 40%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25); 
+    border: 1px solid #143E5B;
+    text-align: center;
+    color: #324252;
+}
+
+.menu_central button {
+  display: inline-block;
+  width: 100%;
+  height: 4rem;
+  font-size: 20px;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 0px;
+  border: 2px solid #fff;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Ubuntu';
+}
+
+.menu_central button:hover{
+  background: #143E5B;
+  color: #fff;
+}
+
+#login-form {
+    width: 100%;
+}
+
+#login-form h1 {
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#login-form input {
+    width: 80%;
+    height: 42px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: 'Verdana';
+    padding: 0 20px 0 10px;
+    outline: none;
+}
+/*----PADRONIZAÇÃO DA JANELA PARA LOGIN (VIZUALIZAR A PÁGINA DE LOGIN)-------*/
+
+
+/*----DIV PARA PADRONIZAÇÃO DOS FORMULÁRIOS (COMO FORMS DE CADASTRO) -------*/
+.formularios
+{
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid #143E5B;
+    width: 50%;
+    margin-top: 100px;
+    background-color: white;
+}
+.formularios h1 { text-align: center; color: #143E5B; }
+.formularios input {
+    padding: 0 0 0 1rem;
+    width: 90%;
+    height: 2.4rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-left: 4.6%;
+    font-size: 14px;
+    font-family: 'Verdana';
+    outline: none;
+}
+
+.formularios textarea
+{
+    padding: 1rem 1rem 1rem 1rem;
+    margin-left: 4.6%;
+    margin-top: 2%;
+    font-size: 14px;
+    font-family: 'Verdana';
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-bottom: 5%;
+    width: 90%;
+}
+
+.formularios p {
+    width: 90%;
+    text-align: left;
+    color: #000;
+    font-size: 1rem;
+    margin-top: 2rem;
+    margin-left: 4.6%;
+}
+
+.formularios button {
+    width: 50%;
+    height: 2rem;
+    background: #143E5B;
+    box-sizing: border-box;
+    border-radius: 0px;
+    margin-left: 23%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-family: 'Verdana';
+    outline: none;
+    cursor: pointer;
+}
+
+.formularios button:hover {
+    background: #869DAD;
+}
+/*----DIV PARA PADRONIZAÇÃO DOS FORMULÁRIOS (COMO FORMS DE CADASTRO) -------*/
