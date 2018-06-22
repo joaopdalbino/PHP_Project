@@ -60,17 +60,15 @@ header {
 #menu_administrativo{
     width: 100%;
     margin: 0;
-    height: 3rem;
+    height: 55px;
     padding: 0 0 0 0;
     list-style: none;
     position: relative;
     display: inline-block;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
     background-color: #e6e6e6;
     box-shadow: 0 2px 1px #9c9c9c;
 }
-
-#menu_administrativo h3 { margin-top: -1px; float: left; margin-left: 20px; font-size: 40px; color: #104170; }
+#menu_administrativo h3 { margin-top: 5px; float: left; margin-left: 20px; font-size: 40px; color: #2E2E2E; }
 
 #menu h3 { margin-top: -10px; float: left; margin-left: 20px; font-size: 50px; }
 .menulinks { float: right; margin-top: 0; }
@@ -219,3 +217,133 @@ header {
     background: #869DAD;
 }
 /*----DIV PARA PADRONIZAÇÃO DOS FORMULÁRIOS (COMO FORMS DE CADASTRO) -------*/
+
+/*----- A TABELA DE RELATÓRIO É CONFIGURADA -----*/
+.tabs {
+  margin-top: 2%;
+  width:95%;
+  display:inline-block;
+  margin-left: 2%;
+  height: auto;
+}
+ 
+/*----- Tab Links -----*/
+
+.tab-links:after {
+  display:block;
+  clear:both;
+  content:'';
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+}
+ 
+    .tab-links li {
+        margin:0px 5px;
+        float:left;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+        list-style:none;
+    }
+ 
+        .tab-links a {
+            padding:1rem 1rem;
+            display:inline-block;
+            border-radius:3px 3px 0px 0px;
+            font-size:16px;
+            font-weight:600;
+            color:#4c4c4c;
+            transition:all linear 0.15s;
+        }
+ 
+        .tab-links a:hover {
+            background:#324252;
+            text-decoration:none;
+        }
+ 
+    .tab-links li.active a,.tab-links li.active, .tab-links a:hover {
+        background:#2E2E2E;
+        color:#4c4c4c;
+      }
+      .tab-links li.active a, .tab-links a:hover
+      {
+        color: #ffffff;
+      }
+ 
+    /*----- Content of Tabs -----*/
+    .tab-content {
+        padding:15px;
+        border-radius:3px;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+
+        background:#fff;
+    }
+    .tab-content h3 { font-size: 20px; font-weight: 500; color: #2E2E2E; }
+
+ 
+        .tab {
+            display:none;
+        }
+ 
+        .tab.active {
+            display:block; 
+
+        }
+/*----- A TABELA DE RELATÓRIO É CONFIGURADA -----*/
+
+/*----- AS TABELAS (RANKING, ÍNDICES) SÃO CONFIGURADAS AQUI, EXCETO A DE RELATÓRIOS -------*/
+.tabusuario
+{
+    width: 90%;
+    text-align: center;
+    border: 1px solid #143E5B;
+    border-collapse: collapse;
+}
+
+.tabusuario p {color: #2E2E2E;}
+.tabusuario th
+{
+    border: 1px solid #143E5B;
+    border-collapse: collapse;
+    text-transform: uppercase;
+    padding: 0.4rem;
+    color: #143E5B;
+}
+
+.tabusuario td
+{
+    border: 1px solid #143E5B;
+    border-collapse: collapse;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.tabusuario button
+{
+    border-radius: 50px;
+    width: 20%;
+    height: 2.3rem;
+    box-sizing: border-box;
+    border: none;
+    color: #fff;
+    background: #2E2E2E;
+    font-size: 1rem;
+    font-family: 'Ubuntu', 'Verdana';
+}
+
+
+.tabusuario button:hover {
+    background: #869DAD;
+}
+/*----- AS TABELAS (RANKING, ÍNDICES) SÃO CONFIGURADAS AQUI, EXCETO A DE RELATÓRIOS -------*/
+
+#overlay {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    z-index:998;
+    background-color: Black;
+    opacity: .5;
+    display: none;
+}
