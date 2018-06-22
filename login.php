@@ -10,7 +10,7 @@
 			<!-- FORM LOGIN -->
 			        <div id="login-form">
 
-			          <form name="form1" method="post" action="valida.php">
+			          <form name="form1" method="post" action="administrativo.php">
 			            <table border="0" cellspacing="0" cellpadding="0">
 			              <tr>
 			                <td>

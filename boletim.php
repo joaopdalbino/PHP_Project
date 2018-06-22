@@ -9,7 +9,7 @@
 
 		<!-- FORM PARA CADASTRO PESSOA -->
 		<div class="formularios">
-		  <form name="form1" method="post" action="" enctype="text/plain">
+		  <form name="form1" id="form1" method="post" action="" enctype="text/plain">
 		  	<h1>Dados Pessoais</h1>
 		    <table border="0" cellspacing="0" cellpadding="0">
 		      <tr>
@@ -20,7 +20,7 @@
 		            <input name="rua" type="text " id="rua" placeholder="Rua" required>
 		            <input name="numero" type="text " id="numero" placeholder="Número" required>
 		            <input name="bairro" type="text " id="bairro" placeholder="Bairro" required>
-		            <input name="complemento" type="text " id="complemento" placeholder="complemento">
+		            <input name="complemento" type="text " id="complemento" placeholder="Complemento">
 		            <select name="estado" required>
 		            	<option value="AC">Acre</option>
 		            	<option value="AL">Alagoas</option>
@@ -50,7 +50,7 @@
 		            	<option value="SE">Sergipe</option>
 		            	<option value="TO">Tocantins</option>
 		            </select>
-		            <button name="confirma" type="submit" id="confirma" value="Confirma">Confirmar</button>
+		            <button name="confirma" onclick="mostrar_bo()" type="submit" id="confirma" value="Confirma">Confirmar</button>
 		        </td>
 		      </tr>
 		    </table>
@@ -59,8 +59,8 @@
 		<!-- FORM PARA CADASTRO -->
 
 		<!-- FORM PARA CADASTRO BO -->
-		<div class="formularios">
-		  <form name="form2" method="post" action="" enctype="text/plain">
+		<div id="form_bo" class="formularios">
+		  <form name="form2" id="form2" method="post" action="" enctype="text/plain">
 		  	<h1>Boletim de Ocorrência</h1>
 		    <table border="0" cellspacing="0" cellpadding="0">
 		      <tr>
@@ -73,7 +73,7 @@
 		            <input name="rua" type="text " id="rua" placeholder="Rua" required>
 		            <input name="numero" type="text " id="numero" placeholder="Número" required>
 		            <input name="bairro" type="text " id="bairro" placeholder="Bairro" required>
-		            <input name="complemento" type="text " id="complemento" placeholder="complemento">
+		            <input name="complemento" type="text " id="complemento" placeholder="Complemento">
 		            <select name="estado" required>
 		            	<option value="AC">Acre</option>
 		            	<option value="AL">Alagoas</option>
@@ -103,8 +103,8 @@
 		            	<option value="SE">Sergipe</option>
 		            	<option value="TO">Tocantins</option>
 		            </select>
-		            <textarea name="boletim" id="boletim" rows="10" cols="50" placeholder="Digite a sua mensagem aqui."></textarea>
-		            <button name="send" type="submit" id="send" value="Send">Entrar</button>
+		            <textarea name="boletim" id="boletim" rows="10" cols="50" placeholder="Digite aqui o B.O. Não deixe de descrever toda as questões."></textarea>
+		            <button name="send" type="submit" id="send" value="Send">Salvar</button>
 		            <button name="reset" type="reset" value="Reset">Limpar</button>
 		        </td>
 		      </tr>
@@ -116,5 +116,13 @@
 
 	</div>
 </body>
+<script>
+	$( document ).ready(function() {
+	    $("#form_bo").css("display", "none");
+	});
+	function mostrar_bo(){
+		$("#form_bo").css("display", "block");
+	}
 
+</script>
 </html>

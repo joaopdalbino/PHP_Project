@@ -17,7 +17,7 @@ html, body{
 a:hover,
 a:focus,
 a:active {
-    color: #c0c0c0;
+    color: #f2f2f2;
 }
 a:link 
 { 
@@ -52,10 +52,25 @@ header {
    height: 3.4rem; 
    padding-top: 1%;
    margin-bottom: 3%;
-   background-color: rgb(48, 64, 79);
+   background-color: #104170;
    position:fixed;
    z-index:1000;  
 }
+
+#menu_administrativo{
+    width: 100%;
+    margin: 0;
+    height: 3rem;
+    padding: 0 0 0 0;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+    background-color: #e6e6e6;
+    box-shadow: 0 2px 1px #9c9c9c;
+}
+
+#menu_administrativo h3 { margin-top: -1px; float: left; margin-left: 20px; font-size: 40px; color: #104170; }
 
 #menu h3 { margin-top: -10px; float: left; margin-left: 20px; font-size: 50px; }
 .menulinks { float: right; margin-top: 0; }
@@ -83,7 +98,7 @@ header {
   background: #fff;
   box-sizing: border-box;
   border-radius: 0px;
-  border: 2px solid #fff;
+  border: 1px solid #f2f2f2;
   color: black;
   font-weight: bold;
   text-transform: uppercase;
@@ -131,19 +146,31 @@ header {
     border: 1px solid #143E5B;
     width: 50%;
     margin-top: 100px;
+    margin-bottom: 10px;
     background-color: white;
 }
 .formularios h1 { text-align: center; color: #143E5B; }
 .formularios input {
-    padding: 0 0 0 1rem;
-    width: 90%;
-    height: 2.4rem;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    margin-left: 4.6%;
-    font-size: 14px;
-    font-family: 'Verdana';
-    outline: none;
+  padding: 0 0 0 1rem;
+  width: 90%;
+  margin-bottom: 8px;
+  height: 2.4rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-left: 4.6%;
+  font-size: 14px;
+  outline: none;
+}
+
+.formularios select {
+  width: 90%;
+  height: 2.4rem;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  padding: 0 0 0 1rem;
+  margin-left: 4.6%;
 }
 
 .formularios textarea
@@ -152,7 +179,7 @@ header {
     margin-left: 4.6%;
     margin-top: 2%;
     font-size: 14px;
-    font-family: 'Verdana';
+    font-family: 'Ubuntu', 'Verdana';
     outline: none;
     box-sizing: border-box;
     border: 1px solid #ccc;
@@ -171,10 +198,10 @@ header {
 
 .formularios button {
     width: 50%;
-    height: 2rem;
-    background: #143E5B;
+    height: 50px;
+    background: #104170;
     box-sizing: border-box;
-    border-radius: 0px;
+    border-radius: 50px;
     margin-left: 23%;
     margin-bottom: 3%;
     margin-top: 3%;
