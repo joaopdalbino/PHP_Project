@@ -2,6 +2,7 @@
 <html>
 <?php
 	include "include/topo.php";
+	include "include/db.php"
 ?>
 <body>
 	<div id="wrap">
