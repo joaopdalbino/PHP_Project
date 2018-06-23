@@ -32,7 +32,7 @@
             	        <th>Mais detalhes</th>
             	        <th>Status</th>
             	      </tr>
-            	      <?php mostra_dados($, "emergencia"); ?>
+            	      <?php mostra_dados($perfil, "geral_emergencias"); ?>
             	    </table>
             	   </div>
             	</div>

@@ -2,41 +2,30 @@
 <html>
 <?php
 	include "include/db.php";
-	//include "consulta_BO.php";
+	include "include/consulta_BO.php";
 	include "include/topo.php";
-	$id = $_GET["dado"];
-	$parametro = $_GET["parametro"]
-	//$estado = "SP"
+	if(isset($_POST['parametro']))
+		$parametro = $_POST['parametro'];
 ?>
 <body>
 	<div id="wrap">
-		<?php include "include/menu_administrativo.php"; ?>
-		<!-- FORM PARA CADASTRO BO -->
-		<div id="form_acidente" class="formularios">
-			<form action="">
-		  	<h1>Ver Detalhes</h1>
-		    <table border="0" cellspacing="0" cellpadding="0">
-		      <tr>
-		        <td>
-		            <input name="rua" type="text " id="rua" placeholder="Rua" disabled>
-		            <input name="numero" type="text " id="numero" placeholder="Número" disabled>
-		            <input name="bairro" type="text " id="bairro" placeholder="Bairro" disabled>
-		            <input name="complemento" type="text " id="complemento" placeholder="Complemento" disabled>
-		            <select name="estado" disabled>
-		            	<option value=""><?php echo $id; ?></option>
-		            </select>
-		            <input name="status" type="text" id="status" placeholder="<?php echo $status; ?>" disabled>
-		        </td>
-		      </tr>
-		  </form>
+		<?php include "include/menu.php"; ?>
+		<div class="tab-content">
+			<div id="tab1" class="tab active">
+			  <div align=center>
+			    <h3>Emergências gerais</h3>
+			    <table class="tabusuario">     
+			      <tr>
+			        <th>Numero BO</th>
+			        <th>Data </th>
+			        <th>Mais detalhes</th>
+			        <th>Status</th>
+			      </tr>
+			      <?php mostra_dados($parametro, $_POST["dado"]); ?>
+			    </table>
+			   </div>
+			</div>
 		</div>
-		<!-- FORM PARA CADASTRO -->
-
 	</div>
 </body>
-<script>
-	function volta(){
-		window.location.href = 'administrativo.php';
-	}
-</script>
 </html>

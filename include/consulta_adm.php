@@ -1,7 +1,7 @@
 <?php
-	function mostra_dados($perfil, $consulta, $tipo){
+	function mostra_dados($perfil, $tipo){
 		if($perfil == "adm"){
-			if($consulta == "geral_emergencias"){
+			if($tipo == "geral_emergencias"){
 				//$sql = "SELECT tipo, "
 				for ($i=0; $i <= 5; $i++) { 
 					if($i%2 == 0)
@@ -16,7 +16,7 @@
 						  <td><p>'.$tipo.'</p></td>
 						  <td style="text-align: center;"><p>'.date('d/m/y').'</p></td>
 						  <td><p>'.$endereco.'</p></td>
-						  <td><a href="mostra_boletim.php?id='.$id_emergencia.'&tipo='.$tipo.'"><button>Ver</button></a></td>
+						  <td><a href="mostra_emergencia.php?id='.$id_emergencia.'&tipo='.$tipo.'"><button>Ver</button></a></td>
 						  <td><p>'.$status.'</p></td>
 						</tr>
 					';
