@@ -1,8 +1,8 @@
 <?php
 
-	function Insere_BO($tipo, $logradouro, $numero, $bairro, $complemento, $cidade, $estado, $descricao, $nome, $rg, $cpf){
+	function Insere_BO($tipo, $logradouro, $numero, $bairro, $complemento, $cidade, $estado, $descricao, $nome, $rg, $cpf, $telefone){
 		include "db.php";
-		Checa_Solicitante($cpf, $nome, $rg);
+		Checa_Solicitante($cpf, $nome, $rg, $telefone);
 		$id_endereco = Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado);
 		$data_envio = date("Y-m-d H:i:s");
 		$sql = "INSERT INTO ocorrencia (CPF, Tipo, Cod_Endereco, Data_Envio, Status_Ocorrencia, Descricao) value ('".$cpf."', '".$tipo."', '".$id_endereco."', '".$data_envio."', '0', '".$descricao."')";
@@ -12,9 +12,9 @@
 		header("Location: mostra_boletim.php?numero_bo=".$numero_bo);
 	}
 
-	function Insere_Emergencia($cpf, $nome, $rg, $logradouro, $numero, $bairro, $complemento, $cidade, $estado, $tipo, $descricao){
+	function Insere_Emergencia($cpf, $nome, $rg, $telefone, $logradouro, $numero, $bairro, $complemento, $cidade, $estado, $tipo, $descricao){
 		include "db.php";
-		Checa_Solicitante($cpf, $nome, $rg);
+		Checa_Solicitante($cpf, $nome, $rg, $telefone);
 		$id_endereco = Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado);
 		$data_envio = date("Y-m-d H:i:s");
 		$sql = "INSERT INTO Emergencia (CPF, Cod_Endereco, Tipo, Data_Envio, Status_Emergencia, Descricao) value ('".$cpf."', '".$id_endereco."','".$tipo."', '".$data_envio."', '0', '".$descricao."')";
@@ -42,13 +42,26 @@
 		return $id_bo;
 	}
 
-	function Checa_Solicitante($cpf, $nome, $rg){
+	function Checa_Registro($registro){
+		include "db.php";
+		$sql = "SELECT * FROM administrativo WHERE Registro='".$registro."'";
+		$consulta = mysqli_query($con, $sql);
+		$existe = mysqli_num_rows($consulta);
+		if($existe == 0){
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+
+	function Checa_Solicitante($cpf, $nome, $rg, $telefone){
 		include "db.php";
 		$sql = "SELECT * FROM solicitante WHERE cpf='".$cpf."'";
 		$consulta = mysqli_query($con, $sql);
 		$existe = mysqli_num_rows($consulta);
 		if($existe == 0){
-			$sql = "INSERT INTO solicitante (CPF, Nome, RG) value ('".$cpf."','".$nome."','".$rg."') ";
+			$sql = "INSERT INTO solicitante (CPF, Nome, RG, Telefone) value ('".$cpf."','".$nome."','".$rg."', '".$telefone."') ";
 			mysqli_query($con, $sql) or die("errocriarsolicitante:".mysqli_error($con));
 		}
 	}
@@ -65,8 +78,13 @@
 			$Status[1] = $campo->Status_Ocorrencia;
 			$cont = 2;
 		}
-		elseif($parametro == "cpf"){
-			$sql = "SELECT * FROM ocorrencia INNER JOIN solicitante ON ocorrencia.CPF = solicitante.CPF WHERE solicitante.CPF = '".$input."'";
+		else{
+			if($parametro == "cpf"){
+				$sql = "SELECT * FROM ocorrencia INNER JOIN solicitante ON ocorrencia.CPF = solicitante.CPF WHERE solicitante.CPF = '".$input."'";
+			}
+			if($parametro == "geral"){
+				$sql = "SELECT * FROM ocorrencia";
+			}
 			$query = mysqli_query($con, $sql) or die("erro_pegar_elecaBO:".mysqli_error($con));
 			$cont = 1;
 			while($campo = mysqli_fetch_array($query)){
@@ -83,16 +101,32 @@
 				  <td><p>'.$Numero[$i].'</p></td>
 				  <td style="text-align: center;"><p>'.$Data[$i].'</p></td>
 				  <td><a href="mostra_boletim.php?numero_bo='.$Numero[$i].'"><button>Ver</button></a></td>
-				  <td><p>'.$Status[$i].'</p></td>
+				  <td><p>'.$Status[$i].'</p></td>';
+			if($parametro == "geral"){
+				echo '<td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=bo"><button>Mudar</button></a></td>';
+			}
+				echo '
 				</tr>
 			';
 		}
 	}
 
-	function Elenca_Emergencias(){
+	function Elenca_Emergencias($parametro){
+		switch ($parametro) {
+			case 0:
+				$sql = "SELECT * FROM emergencia ORDER BY Data_Envio DESC";
+				break;
+			
+			case 1:
+				$sql = "SELECT * FROM emergencia WHERE Tipo = '0'";
+				break;
+
+			case 2:
+				$sql = "SELECT * FROM emergencia WHERE Tipo = '1'";
+				break;
+		}
 		include "db.php";		
 		$numero[] = ''; $Data[] = ''; $Status[] = '';
-		$sql = "SELECT * FROM emergencia";
 		$query = mysqli_query($con, $sql) or die("erro_pegar_elecaEmergencia:".mysqli_error($con));
 		$cont = 1;
 		while($campo = mysqli_fetch_array($query)){
@@ -115,7 +149,7 @@
 				  <td style="text-align: center;"><p>'.$Data[$i].'</p></td>
 				  <td><a href="mostra_emergencia.php?numero_emergencia='.$Numero[$i].'"><button>Ver</button></a></td>
 				  <td><p>'.$Status[$i].'</p></td>
-				  <td><a href="mudar_status.php?numero_emergencia='.$Numero[$i].'"><button>Mudar</button></a></td>
+				  <td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=eme"><button>Mudar</button></a></td>
 				</tr>
 			';
 		}
@@ -137,33 +171,64 @@
 		return $campo;
 	}
 
-	function Muda_Status($input){
+	function Muda_Status($input, $tipo){
 		include "db.php";
-		$select = "SELECT Status_Emergencia from Emergencia WHERE Cod_Emergencia = '".$input."'";
-		$query = mysqli_query($con, $select) or die("erro_consuta_status_emergencia:".mysqli_error($con));
-		$campo=mysqli_fetch_object($query);
-		$Status = $campo->Status_Emergencia;
-		if($Status < 2){
-			$Status++;
+		if($tipo == "Emergência"){
+			$select = "SELECT Status_Emergencia from emergencia WHERE Cod_Emergencia = '".$input."'";
+			$query = mysqli_query($con, $select) or die("erro_consuta_status_emergencia:".mysqli_error($con));
+			$campo=mysqli_fetch_object($query);
+			$Status = $campo->Status_Emergencia;
+			if($Status < 2){
+				$Status++;
+			}
+			$sql = "UPDATE emergencia SET Status_Emergencia = '".$Status."' WHERE Cod_Emergencia = '".$input."'";
+			$query = mysqli_query($con, $sql) or die("erro_update_emergencia:".mysqli_error($con));
 		}
-		$sql = "UPDATE emergencia SET Status_Emergencia = '".$Status."' WHERE Cod_Emergencia = '".$input."'";
-		$query = mysqli_query($con, $sql) or die("erro_update_emergencia:".mysqli_error($con));
+		if($tipo == "Ocorrência"){
+			$select = "SELECT Status_Ocorrencia from ocorrencia WHERE Cod_Ocorrencia = '".$input."'";
+			$query = mysqli_query($con, $select) or die("erro_consuta_status_ocorrência:".mysqli_error($con));
+			$campo=mysqli_fetch_object($query);
+			$Status = $campo->Status_Ocorrencia;
+			if($Status < 2){
+				$Status++;
+			}
+			$sql = "UPDATE ocorrencia SET Status_Ocorrencia = '".$Status."' WHERE Cod_Ocorrencia = '".$input."'";
+			$query = mysqli_query($con, $sql) or die("erro_update_ocorrencia:".mysqli_error($con));
+		}
 	}
 
 	function login($registro, $senha){
 		include "db.php";
-		$select = "SELECT Tipo from administrativo WHERE Registro = '".$registro."' AND Senha = '".$senha."'";
+		//session_start();
+		$select = "SELECT * from administrativo WHERE Registro = '".$registro."' AND Senha = '".$senha."'";
 		$query = mysqli_query($con, $select) or die("erro_login:".mysqli_error($con));
 		$campo=mysqli_fetch_object($query);
-		$tipo = $campo->Tipo;
-		if(isset($tipo)){
+		if(isset($campo->Tipo))
+			$tipo = $campo->Tipo;
+		else
+			$tipo = -1;
+		if($tipo >= 0){
 			$_SESSION["usuario"] = $registro;
 			$_SESSION["senha"] = $senha;
 			$_SESSION["tipo"] = $tipo;
 			return $tipo;
 		}
 		else{
+			$_SESSION["tipo"] = $tipo;
 			return -1;
+		}
+	}
+
+	function Cria_Usuario($registro, $senha, $tipo){
+		include "db.php";
+		$podesalvar = Checa_Registro($registro);
+		if($podesalvar == 1){
+			$sql = "INSERT INTO administrativo (Registro, Senha, Tipo) value ('".$registro."', '".$senha."', '".$tipo."')";
+			mysqli_query($con, $sql) or die("erroinsereocorrencia:".mysqli_error($con));
+			return 1;
+		}
+		else{
+			return 0;
 		}
 	}
 ?>

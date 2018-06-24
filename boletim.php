@@ -5,7 +5,7 @@
 	$enviado = $_POST["send"];
 	if ($enviado != ""){
 	    include "include/db_conexoes.php";
-	    Insere_BO($_POST["categoria"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], $_POST["boletim"], $_POST["nome"], $_POST["RG"], $_POST["CPF"]);
+	    Insere_BO($_POST["categoria"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], $_POST["boletim"], $_POST["nome"], $_POST["RG"], $_POST["CPF"], $_POST["telefone"]);
 	}
 ?>
 <body>
@@ -19,21 +19,22 @@
 		    <table border="0" cellspacing="0" cellpadding="0">
 		      <tr>
 		        <td>
-		        	<input name="nome" type="text" id="nome"placeholder="Nome" required>
-		            <input name="CPF" type="text" id="CPF" placeholder="CPF" required>
-		            <input name="RG" type="text" id="RG" placeholder="RG" required>
+		        	<input name="nome" maxlength="140" type="text" id="nome" placeholder="Nome" required>
+		        	<input name="CPF" maxlength="11" type="text" id="CPF" placeholder="CPF" required>
+		            <input name="RG" maxlength="10" type="text" id="RG" placeholder="RG" required>
+		            <input name="telefone" maxlength="13" type="text" id="telefone" placeholder="(xx) xxxxx-xxxx" required>
 		            <select name="categoria">
 		            	<option value="Assédio Sexual">Assédio Sexual</option>
 		            	<option value="Assédio Moral">Assédio Moral</option>
 		            	<option value="Roubo">Roubo</option>
 		            	<option value="Furto">Furto</option>
 		            </select>
-		            <input type="date" name="data" id="data">
-		            <input name="logradouro" type="text " id="logradouro" placeholder="Logradouro" required>
-		            <input name="numero" type="text " id="numero" placeholder="Número">
-		            <input name="cidade" type="text " id="cidade" placeholder="Cidade" required>
-		            <input name="bairro" type="text " id="bairro" placeholder="Bairro" required>
-		            <input name="complemento" type="text " id="complemento" placeholder="Complemento">
+		            <input type="date" name="data" id="data" required>
+		            <input name="logradouro" maxlength="140" type="text" id="logradouro" placeholder="Logradouro" required>
+		            <input name="numero" maxlength="10" type="text" id="numero" placeholder="Número" required>
+		            <input name="cidade" maxlength="140" type="text" id="cidade" placeholder="Cidade" required>
+		            <input name="bairro" maxlength="140" type="text" id="bairro" placeholder="Bairro" required>
+		            <input name="complemento" maxlength="140" type="text" id="complemento" placeholder="Complemento">
 		            <select name="estado" required>
 		            	<option value="AC">Acre</option>
 		            	<option value="AL">Alagoas</option>
@@ -63,7 +64,7 @@
 		            	<option value="SE">Sergipe</option>
 		            	<option value="TO">Tocantins</option>
 		            </select>
-		            <textarea name="boletim" id="boletim" rows="10" cols="50" placeholder="Digite aqui o B.O. Não deixe de descrever toda as questões."></textarea>
+		            <textarea name="boletim" id="boletim" rows="10" cols="50" required placeholder="Digite aqui o B.O. Não deixe de descrever toda as questões."></textarea>
 		            <button name="send" type="submit" value="envio">Salvar</button>
 		            <button name="reset" type="reset" value="Reset">Limpar</button>
 		        </td>
@@ -73,10 +74,22 @@
 		</div>
 		<!-- FORM PARA CADASTRO -->
 
-
 	</div>
 </body>
 <script>
-
+	$(document).ready(function() {
+	    $("#numero").keydown(function (e) {
+	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+	            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+	            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+	            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+	            (e.keyCode >= 35 && e.keyCode <= 39)) {
+	                 return;
+	        }
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+	            e.preventDefault();
+	        }
+	    });
+	});
 </script>
 </html>

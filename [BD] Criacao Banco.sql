@@ -15,8 +15,9 @@ CREATE TABLE endereco (
 
 CREATE TABLE solicitante (
 	Nome varchar(144),
-	RG varchar(9) NOT NULL,
+	RG varchar(10) NOT NULL,
 	CPF varchar(11) NOT NULL,
+    Telefone varchar(13) NOT NULL,
 	PRIMARY KEY (CPF)
 );
 

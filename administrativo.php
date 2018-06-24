@@ -4,11 +4,31 @@
 	include "include/db_conexoes.php";
 	include "include/topo.php";
     session_start();
-    if($_SESSION["usuario"] == NULL){
+    if(isset($_POST["Entrar"])){
         $tipo = login($_POST['usuario'], $_POST['senha']);
+    }else{
+        $tipo = $_SESSION["tipo"];
     }
-    if($_SESSION["tipo"] < 0){
-        header("Location: erro.php");
+
+    if($tipo < 0){
+        header("Location: index.php?erro=1");
+    }
+    if(isset($_GET["mensagem"])){
+        if($_GET["mensagem"] == "ok"){?>
+            <script type="text/javascript">
+                alert("Dados Salvos!");
+                window.location.href = 'administrativo.php';
+            </script>
+        <?php
+        }
+        if($_GET["mensagem"] == "erro"){
+            ?>
+            <script type="text/javascript">
+                alert("Dados não foram salvos!");
+                location.reload();
+            </script>
+        <?php
+        }
     }
 ?>
 <body>
@@ -17,16 +37,18 @@
 		
 		<div class="tabs">
             <ul class="tab-links">
-              <li class="active"><a href="#tab1">Emergências Gerais</a></li>
-              <li><a href="#tab2">Ambulância</a></li>
-              <li><a href="#tab3">Polícia</a></li>
-              <li><a href="#tab4">B.Os</a></li>
-              <li><a href="#tab5">Estatísticas</a></li>
-              <li><a href="#tab6">Configurações</a></li>
+              <li <?php if($_SESSION["tipo"] != 0) echo "hidden"; ?> <?php if($_SESSION["tipo"] == 0) echo 'class="active"'; ?> ><a href="#tab1">Emergências Gerais</a></li>
+              <li <?php if($_SESSION["tipo"] == 2) echo "hidden"; ?> <?php if($_SESSION["tipo"] == 1) echo 'class="active"'; ?> ><a href="#tab2">Ambulância</a></li>
+              <li <?php if($_SESSION["tipo"] == 1) echo "hidden"; ?> <?php if($_SESSION["tipo"] == 2) echo 'class="active"'; ?> ><a href="#tab3">Polícia</a></li>
+              <li <?php if($_SESSION["tipo"] == 1) echo "hidden"; ?> ><a href="#tab4">B.Os</a></li>
+              <li <?php if($_SESSION["tipo"] != 0) echo "hidden"; ?> ><a href="#tab5">Configurações</a></li>
             </ul>
 
             <div class="tab-content">
-            	<div id="tab1" class="tab active">
+                <?php if($_SESSION["tipo"] == 0){
+
+                 ?>
+            	<div id="tab1" <?php if($_SESSION["tipo"] == 0) echo 'class="tab active"'; ?>>
             	  <div align=center>
             	    <h3>Emergências gerais</h3>
             	    <table class="tabusuario">     
@@ -37,24 +59,127 @@
             	        <th>Status</th>
                         <th>Mudar Status</th>
             	      </tr>
-            	      <?php Elenca_Emergencias(); ?>
+            	      <?php Elenca_Emergencias(0); ?>
             	    </table>
             	   </div>
             	</div>
+                <?php
+                }
+                ?>
 
-            	<div id="tab2" class="tab">
+                <?php if(($_SESSION["tipo"] == 1) || ($_SESSION["tipo"] == 0)){
+
+                ?>
+            	<div id="tab2" <?php if($_SESSION["tipo"] == 1){echo 'class="tab active"';}else{echo 'class="tab"';} ?>>
             	  <div align=center>
             	    <h3>Ambulância</h3>
-            	    
+            	    <table class="tabusuario">     
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>Mais detalhes</th>
+                        <th>Status</th>
+                        <th>Mudar Status</th>
+                      </tr>
+                      <?php Elenca_Emergencias(1); ?>
+                    </table>
             	   </div>
             	</div>
+                <?php
+                }
+                ?>
 
-            	<div id="tab3" class="tab">
+                <?php if(($_SESSION["tipo"] == 2) || ($_SESSION["tipo"] == 0)){
+
+                ?>
+            	<div id="tab3" <?php if($_SESSION["tipo"] == 2){echo 'class="tab active"';}else{echo 'class="tab"';} ?>>
             	  <div align=center>
             	    <h3>Polícia</h3>
-            	    
+            	    <table class="tabusuario">     
+                      <tr>
+                        <th>Tipo</th>
+                        <th>Data</th>
+                        <th>Mais detalhes</th>
+                        <th>Status</th>
+                        <th>Mudar Status</th>
+                      </tr>
+                      <?php Elenca_Emergencias(2); ?>
+                    </table>
             	   </div>
             	</div>
+                <?php
+                    }
+                ?>
+
+                <?php if(($_SESSION["tipo"] == 2) || ($_SESSION["tipo"] == 0)){
+
+                 ?>
+                <div id="tab4" class="tab">
+                  <div align=center>
+                    <h3>Boletins de Ocorrência</h3>
+                    <table class="tabusuario">     
+                      <tr>
+                        <th>Número</th>
+                        <th>Data</th>
+                        <th>Mais detalhes</th>
+                        <th>Status</th>
+                        <th>Mudar Status</th>
+                      </tr>
+                      <?php Elenca_BO("geral", 0); ?>
+                    </table>
+                   </div>
+                </div>
+                <?php
+                }
+                ?>
+
+                <?php if($_SESSION["tipo"] == 0){
+
+                ?>
+                <div id="tab5" class="tab">
+                    <div align=center>
+                    <h3>Configurações</h3>
+                    <form method="post" action="include/criar_usuario.php">
+                        <table class="tabusuario">
+                            <tr>
+                                <td>
+                                    <p>Número Registro: </p>
+                                </td>
+                                <td>
+                                    <input name="registro" type="text" id="registro" placeholder="Nº Registro" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Senha: </p>
+                                </td>
+                                <td>
+                                    <input name="senha" type="password" id="senha" placeholder="Senha" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Tipo de usuário: </p>
+                                </td>
+                                <td>
+                                    <select name="tipo">
+                                        <option value="0">Administrador Geral</option>
+                                        <option value="1">Ambulância</option>
+                                        <option value="2">Polícia</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Clique em salvar:</p></td>
+                                <td><button name="send" type="submit">Criar</button></td>
+                            </tr>
+                        </table>
+                    </form>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
            	</div>
         </div>
         <!-- FORM PARA CADASTRO -->

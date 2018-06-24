@@ -2,7 +2,15 @@
 <html>
 <?php
 	include "include/topo.php";
-	include "include/db.php"
+	include "include/db.php";
+	if($_GET["erro"]==1){
+		?>
+		<script type="text/javascript">
+		    alert("Login não existe!");
+		    window.location.href = 'index.php';
+		</script>
+		<?php
+	}
 ?>
 <body>
 	<div id="wrap">

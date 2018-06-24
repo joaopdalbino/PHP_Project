@@ -43,6 +43,7 @@
 		        	<input name="nome" type="text" id="nome" value="<?php echo $campo->Nome; ?>" disabled>
 		            <input name="CPF" type="text" id="CPF" value="<?php echo $campo->CPF; ?>" disabled>
 		            <input name="RG" type="text" id="RG" value="<?php echo $campo->RG; ?>" disabled>
+		            <input name="telefone" type="text" id="telefone" value="<?php echo $campo->Telefone; ?>" required>
 		            <input type="date" name="data" id="data" value="<?php echo $campo->Data_Envio; ?>" disabled>
 		            <input name="logradouro" type="text " id="logradouro" value="<?php echo $campo->Logradouro; ?>" disabled>
 		            <input name="numero" type="text " id="numero" value="<?php echo $campo->Numero; ?>" disabled>

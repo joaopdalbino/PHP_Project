@@ -34,6 +34,7 @@
 			        	<input name="nome" type="text" id="nome" value="<?php echo $campo->Nome; ?>" disabled>
 			            <input name="CPF" type="text" id="CPF" value="<?php echo $campo->CPF; ?>" disabled>
 			            <input name="RG" type="text" id="RG" value="<?php echo $campo->RG; ?>" disabled>
+			            <input name="telefone" type="text" id="telefone" value="<?php echo $campo->Telefone; ?>" required>
 			            <select name="categoria" disabled>
 			            	<option value=""><?php echo $campo->Tipo; ?></option>
 			            </select>

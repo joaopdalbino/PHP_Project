@@ -6,7 +6,7 @@
 	if ($enviado != ""){
 		//$descricao_emergencia = "[".$_POST["tipo"]."]: ".$_POST["descricao"];
 	    include "include/db_conexoes.php";
-	    Insere_Emergencia($_POST["CPF"], $_POST["nome"], $_POST["RG"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], 1, $_POST["descricao"]);
+	    Insere_Emergencia($_POST["CPF"], $_POST["nome"], $_POST["RG"], $_POST["telefone"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], 1, $_POST["descricao"]);
 	}
 ?>
 <body>
@@ -27,14 +27,15 @@
 		      <tr>
 		        <td>
 		        	<input name="tipo" type="text" id="tipo" disabled>
-		        	<input name="nome" type="text" id="nome"placeholder="Nome" required>
-		        	<input name="CPF" type="text" id="CPF" placeholder="CPF" required>
-		            <input name="RG" type="text" id="RG" placeholder="RG" required>
-		            <input name="logradouro" type="text" id="logradouro" placeholder="Logradouro" required>
-		            <input name="numero" type="text" id="numero" placeholder="Número" required>
-		            <input name="cidade" type="text" id="cidade" placeholder="Cidade" required>
-		            <input name="bairro" type="text" id="bairro" placeholder="Bairro" required>
-		            <input name="complemento" type="text" id="complemento" placeholder="Complemento">
+		        	<input name="nome" maxlength="140" type="text" id="nome" placeholder="Nome" required>
+		        	<input name="CPF" maxlength="11" type="text" id="CPF" placeholder="CPF" required>
+		            <input name="RG" maxlength="10" type="text" id="RG" placeholder="RG" required>
+		            <input name="telefone" maxlength="13" type="text" id="telefone" placeholder="(xx) xxxxx-xxxx" required>
+		            <input name="logradouro" maxlength="140" type="text" id="logradouro" placeholder="Logradouro" required>
+		            <input name="numero" maxlength="10" type="text" id="numero" placeholder="Número" required>
+		            <input name="cidade" maxlength="140" type="text" id="cidade" placeholder="Cidade" required>
+		            <input name="bairro" maxlength="140" type="text" id="bairro" placeholder="Bairro" required>
+		            <input name="complemento" maxlength="140" type="text" id="complemento" placeholder="Complemento">
 		            <select name="estado" required>
 		            	<option value="AC">Acre</option>
 		            	<option value="AL">Alagoas</option>
@@ -81,6 +82,21 @@
 		$('#tipo').val("Furto");
 		habilita();
 	}
+
+	$(document).ready(function() {
+	    $("#numero").keydown(function (e) {
+	        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+	            (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+	            (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+	            (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+	            (e.keyCode >= 35 && e.keyCode <= 39)) {
+	                 return;
+	        }
+	        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+	            e.preventDefault();
+	        }
+	    });
+	});
 
 	function mostra_roubo(){
 		$('#tipo').val("Roubo");
