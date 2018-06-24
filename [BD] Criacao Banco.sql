@@ -28,14 +28,14 @@ CREATE TABLE administrativo (
 );
 
 CREATE TABLE emergencia (
-	Cod_Emergecia int NOT NULL AUTO_INCREMENT,
+	Cod_Emergencia int NOT NULL AUTO_INCREMENT,
 	CPF varchar(11) NOT NULL,
 	Cod_Endereco int,
 	Tipo int,
     Data_Envio date,
 	Status_Emergencia int,
 	Descricao varchar(20),
-	PRIMARY KEY (Cod_Emergecia),
+	PRIMARY KEY (Cod_Emergencia),
 	FOREIGN KEY (Cod_Endereco) REFERENCES endereco(Cod_Endereco),
 	FOREIGN KEY (CPF) REFERENCES solicitante(CPF)
 );

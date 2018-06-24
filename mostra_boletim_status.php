@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php
-	include "include/db.php";
-	include "include/consulta_BO.php";
+	include "include/db_conexoes.php";
 	include "include/topo.php";
 	if(isset($_POST['parametro']))
 		$parametro = $_POST['parametro'];
@@ -21,7 +20,7 @@
 			        <th>Mais detalhes</th>
 			        <th>Status</th>
 			      </tr>
-			      <?php mostra_dados($parametro, $_POST["dado"]); ?>
+			      <?php Elenca_BO($parametro, $_POST["dado"]); ?>
 			    </table>
 			   </div>
 			</div>

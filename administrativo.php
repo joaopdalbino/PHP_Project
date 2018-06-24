@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
 <?php
-	include "include/db.php";
+	include "include/db_conexoes.php";
 	include "include/topo.php";
-	include "include/consulta_adm.php";
-	$perfil = "adm";
+    session_start();
+    if($_SESSION["usuario"] == NULL){
+        $tipo = login($_POST['usuario'], $_POST['senha']);
+    }
+    if($_SESSION["tipo"] < 0){
+        header("Location: erro.php");
+    }
 ?>
 <body>
 	<div id="wrap">
@@ -28,11 +33,11 @@
             	      <tr>
             	        <th>Tipo</th>
             	        <th>Data</th>
-            	        <th>Endereço</th>
             	        <th>Mais detalhes</th>
             	        <th>Status</th>
+                        <th>Mudar Status</th>
             	      </tr>
-            	      <?php mostra_dados($perfil, "geral_emergencias"); ?>
+            	      <?php Elenca_Emergencias(); ?>
             	    </table>
             	   </div>
             	</div>
