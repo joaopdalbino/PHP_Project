@@ -10,7 +10,7 @@
 	mysqli_query($con, "SET character_set_results=utf8");
 	
 	if ($con){
-		mysqli_select_db($con, "BO"); //seleção do banco de dados
+		mysqli_select_db($con, "BO");
 	}
 	else{
 		echo "Conexão com o banco de dados falhou, tente novamente.";

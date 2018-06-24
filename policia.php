@@ -2,28 +2,39 @@
 <html>
 <?php
 	include "include/topo.php";
+	$enviado = $_POST["send"];
+	if ($enviado != ""){
+		//$descricao_emergencia = "[".$_POST["tipo"]."]: ".$_POST["descricao"];
+	    include "include/db_conexoes.php";
+	    Insere_Emergencia($_POST["CPF"], $_POST["nome"], $_POST["RG"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], 1, $_POST["descricao"]);
+	}
 ?>
 <body>
 	<div id="wrap">
 		<?php include "include/menu.php"; ?>
 		
 		<div class ="menu_central">
-			<button id="btn_furto" onclick="mostra_acidente()"> Furto </button>
-			<button id="btn_roubo" onclick="mostra_acidente()"> Roubo </button>
-			<button id="btn_agressao" onclick="mostra_acidente()"> Agressão </button>
+			<button id="btn_furto" onclick="mostra_furto()"> Furto </button>
+			<button id="btn_roubo" onclick="mostra_roubo()"> Roubo </button>
+			<button id="btn_agressao" onclick="mostra_agressao()"> Agressão </button>
 		</div>
 
 		<!-- FORM PARA CADASTRO BO -->
 		<div id="form_acidente" class="formularios" style="display: none;">
-		  <form name="form2" id="form2" method="post" action="" enctype="text/plain">
-		  	<h1>Solicitar ocorrência</h1>
+		  <form name="form2" id="form2" method="post" action="">
+		  	<h1>Solicitar Emergência</h1>
 		    <table border="0" cellspacing="0" cellpadding="0">
 		      <tr>
 		        <td>
-		            <input name="rua" type="text " id="rua" placeholder="Rua" required>
-		            <input name="numero" type="text " id="numero" placeholder="Número" required>
-		            <input name="bairro" type="text " id="bairro" placeholder="Bairro" required>
-		            <input name="complemento" type="text " id="complemento" placeholder="Complemento">
+		        	<input name="tipo" type="text" id="tipo" disabled>
+		        	<input name="nome" type="text" id="nome"placeholder="Nome" required>
+		        	<input name="CPF" type="text" id="CPF" placeholder="CPF" required>
+		            <input name="RG" type="text" id="RG" placeholder="RG" required>
+		            <input name="logradouro" type="text" id="logradouro" placeholder="Logradouro" required>
+		            <input name="numero" type="text" id="numero" placeholder="Número" required>
+		            <input name="cidade" type="text" id="cidade" placeholder="Cidade" required>
+		            <input name="bairro" type="text" id="bairro" placeholder="Bairro" required>
+		            <input name="complemento" type="text" id="complemento" placeholder="Complemento">
 		            <select name="estado" required>
 		            	<option value="AC">Acre</option>
 		            	<option value="AL">Alagoas</option>
@@ -53,6 +64,7 @@
 		            	<option value="SE">Sergipe</option>
 		            	<option value="TO">Tocantins</option>
 		            </select>
+		            <textarea name="descricao" id="descricao" rows="10" cols="50" placeholder="Descrição"></textarea>
 		            <button name="send" type="submit" id="send" value="Send">Salvar</button>
 		            <button name="voltar" onclick="volta()" id="voltar" value="voltar">Voltar</button>
 		        </td>
@@ -65,10 +77,26 @@
 </body>
 
 <script type="text/javascript">
-	function mostra_acidente(){
+	function mostra_furto(){
+		$('#tipo').val("Furto");
+		habilita();
+	}
+
+	function mostra_roubo(){
+		$('#tipo').val("Roubo");
+		habilita();
+	}
+
+	function mostra_agressao(){
+		$('#tipo').val("Agressão");
+		habilita();
+	}
+
+	function habilita(){
 		$('#form_acidente').css("display", "block");
 		$('.menu_central').css("display", "none");
 	}
+
 	function volta(){
 		$('#form_acidente').css("display", "none");
 		$('.menu_central').css("display", "block");
