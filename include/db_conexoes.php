@@ -96,12 +96,25 @@
 		}
 		$cont--;
 		for ($i=1; $i <= $cont; $i++) { 
+			switch ($Status[$i]) {
+				case '0':
+					$msg = "Esperando Validação";
+					break;
+				
+				case '1':
+					$msg = "Recebido";
+					break;
+
+				case '2':
+					$msg = "Finalizado";
+					break;
+			}
 			echo '
 				<tr> 
 				  <td><p>'.$Numero[$i].'</p></td>
 				  <td style="text-align: center;"><p>'.$Data[$i].'</p></td>
-				  <td><a href="mostra_boletim.php?numero_bo='.$Numero[$i].'"><button>Ver</button></a></td>
-				  <td><p>'.$Status[$i].'</p></td>';
+				  <td><a href="mostra_boletim_adm.php?numero_bo='.$Numero[$i].'"><button>Ver</button></a></td>
+				  <td><p>'.$msg.'</p></td>';
 			if($parametro == "geral"){
 				echo '<td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=bo"><button>Mudar</button></a></td>';
 			}
@@ -143,13 +156,28 @@
 			}else{
 				$Emergencia = "Ambulância";
 			}
+
+			switch ($Status[$i]) {
+				case '0':
+					$msg = "Esperando";
+					break;
+				
+				case '1':
+					$msg = "Recebido";
+					break;
+
+				case '2':
+					$msg = "Finalizado";
+					break;
+			}
+
 			echo '
 				<tr> 
 				  <td><p>'.$Emergencia.'</p></td>
 				  <td style="text-align: center;"><p>'.$Data[$i].'</p></td>
 				  <td><a href="mostra_emergencia.php?numero_emergencia='.$Numero[$i].'"><button>Ver</button></a></td>
-				  <td><p>'.$Status[$i].'</p></td>
-				  <td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=eme"><button>Mudar</button></a></td>
+				  <td><p>'.$msg.'</p></td>
+				  <td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=eme"><button style="width: auto;">Mudar</button></a></td>
 				</tr>
 			';
 		}
