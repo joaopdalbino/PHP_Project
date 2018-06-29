@@ -21,7 +21,7 @@
 		<!-- FORM PARA CADASTRO BO -->
 		<div id="form_acidente" class="formularios" style="display: none;">
 		  <form name="form2" id="form2" method="post" action="">
-		  	<h1>Solicitar Emergência</h1>
+		  	<h1>Solicitar Ambulância</h1>
 		    <table border="0" cellspacing="0" cellpadding="0">
 		      <tr>
 		        <td>

@@ -22,7 +22,7 @@
 		<!-- FORM PARA CADASTRO BO -->
 		<div id="form_acidente" class="formularios" style="display: none;">
 		  <form name="form2" id="form2" method="post" action="">
-		  	<h1>Solicitar Emergência</h1>
+		  	<h1>Solicitar Viatura</h1>
 		    <table border="0" cellspacing="0" cellpadding="0">
 		      <tr>
 		        <td>
@@ -30,7 +30,7 @@
 		        	<input name="nome" maxlength="140" type="text" id="nome" placeholder="Nome" required>
 		        	<input name="CPF" maxlength="11" type="text" id="CPF" placeholder="CPF" required>
 		            <input name="RG" maxlength="10" type="text" id="RG" placeholder="RG" required>
-		            <input name="telefone" maxlength="13" type="text" id="telefone" placeholder="(xx) xxxxx-xxxx" required>
+		            <input name="telefone" maxlength="13" type="text" id="telefone" placeholder="Telefone" required>
 		            <input name="logradouro" maxlength="140" type="text" id="logradouro" placeholder="Logradouro" required>
 		            <input name="numero" maxlength="10" type="text" id="numero" placeholder="Número" required>
 		            <input name="cidade" maxlength="140" type="text" id="cidade" placeholder="Cidade" required>

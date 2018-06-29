@@ -73,6 +73,10 @@
 			$sql = "SELECT * from ocorrencia WHERE Cod_Ocorrencia = '".$input."'";
 			$query = mysqli_query($con, $sql) or die("erro_pegar_elecaBO:".mysqli_error($con));
 			$campo=mysqli_fetch_object($query);
+			$existe = mysqli_num_rows($query);
+			if($existe == 0){
+				return;
+			}
 			$Numero[1] = $campo->Cod_Ocorrencia;
 			$Data[1] = $campo->Data_Envio;
 			$Status[1] = $campo->Status_Ocorrencia;
@@ -83,7 +87,7 @@
 				$sql = "SELECT * FROM ocorrencia INNER JOIN solicitante ON ocorrencia.CPF = solicitante.CPF WHERE solicitante.CPF = '".$input."'";
 			}
 			if($parametro == "geral"){
-				$sql = "SELECT * FROM ocorrencia";
+				$sql = "SELECT * FROM ocorrencia ORDER BY Data_Envio DESC, Status_Ocorrencia";
 			}
 			$query = mysqli_query($con, $sql) or die("erro_pegar_elecaBO:".mysqli_error($con));
 			$cont = 1;
@@ -116,7 +120,7 @@
 				  <td><a href="mostra_boletim_adm.php?numero_bo='.$Numero[$i].'"><button>Ver</button></a></td>
 				  <td><p>'.$msg.'</p></td>';
 			if($parametro == "geral"){
-				echo '<td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=bo"><button>Mudar</button></a></td>';
+				echo '<td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=bo"><button style="width: auto;">Mudar</button></a></td>';
 			}
 				echo '
 				</tr>
@@ -127,15 +131,15 @@
 	function Elenca_Emergencias($parametro){
 		switch ($parametro) {
 			case 0:
-				$sql = "SELECT * FROM emergencia ORDER BY Data_Envio DESC";
+				$sql = "SELECT * FROM emergencia ORDER BY Data_Envio DESC, Status_Emergencia";
 				break;
 			
 			case 1:
-				$sql = "SELECT * FROM emergencia WHERE Tipo = '0'";
+				$sql = "SELECT * FROM emergencia WHERE Tipo = '0' ORDER BY Data_Envio DESC, Status_Emergencia";
 				break;
 
 			case 2:
-				$sql = "SELECT * FROM emergencia WHERE Tipo = '1'";
+				$sql = "SELECT * FROM emergencia WHERE Tipo = '1' ORDER BY Data_Envio DESC, Status_Emergencia";
 				break;
 		}
 		include "db.php";		
