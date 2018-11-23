@@ -1,0 +1,349 @@
+html, body, span, p, form, img, a, ul, ol, li, table, tr, td, div{
+margin: 0;
+padding: 0; 
+border:none; 
+outline:none;
+list-style-type:none;
+}
+
+html, body{
+  height: 100%;
+	width: 100%;
+	margin: 0;
+  padding: 0;
+  background-color:#FFF;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: #f2f2f2;
+}
+a:link 
+{ 
+ text-decoration:none; 
+} 
+
+h1,
+h3,
+p,
+a,
+div,
+li {
+    font-family: 'Ubuntu', 'Verdana';
+    color: #FFFFFF;
+}
+
+header {
+	background-attachment: fixed;
+}
+
+#wrap {
+    height: auto !important;
+    width:100%;
+    margin: 0 auto;
+    min-height: 100%
+    display: block;
+}
+#menu{
+   margin: 0;
+   top: 0;left: 0;
+   width: 100%; 
+   height: 3.4rem; 
+   padding-top: 1%;
+   margin-bottom: 3%;
+   background-color: #104170;
+   position:fixed;
+   z-index:1000;  
+}
+
+#menu_administrativo{
+    width: 100%;
+    margin: 0;
+    height: 55px;
+    padding: 0 0 0 0;
+    list-style: none;
+    position: relative;
+    display: inline-block;
+    background-color: #e6e6e6;
+    box-shadow: 0 2px 1px #9c9c9c;
+}
+#menu_administrativo h3 { margin-top: 5px; float: left; margin-left: 20px; font-size: 40px; color: #2E2E2E; }
+
+#menu h3 { margin-top: -10px; float: left; margin-left: 20px; font-size: 50px; }
+.menulinks { float: right; margin-top: 0; }
+.container {width: 90%;}
+
+.menu_central{
+    position: absolute;
+    width: 300px;
+    height: auto;
+    z-index: 15;
+    top: 40%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25); 
+    border: 1px solid #143E5B;
+    text-align: center;
+    color: #324252;
+}
+
+.menu_central button {
+  display: inline-block;
+  width: 100%;
+  height: 4rem;
+  font-size: 20px;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 0px;
+  border: 1px solid #f2f2f2;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Ubuntu';
+}
+
+.menu_central button:hover{
+  background: #143E5B;
+  color: #fff;
+}
+
+#login-form {
+    width: 100%;
+}
+
+#login-form h1 {
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#login-form input {
+    width: 80%;
+    height: 42px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: 'Verdana';
+    padding: 0 20px 0 10px;
+    outline: none;
+}
+/*----PADRONIZAÇÃO DA JANELA PARA LOGIN (VIZUALIZAR A PÁGINA DE LOGIN)-------*/
+
+
+/*----DIV PARA PADRONIZAÇÃO DOS FORMULÁRIOS (COMO FORMS DE CADASTRO) -------*/
+.formularios
+{
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid #143E5B;
+    width: 50%;
+    margin-top: 100px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+.formularios h1 { text-align: center; color: #143E5B; }
+.formularios input {
+  padding: 0 0 0 1rem;
+  width: 90%;
+  margin-bottom: 8px;
+  height: 2.4rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  margin-left: 4.6%;
+  font-size: 14px;
+  outline: none;
+}
+
+.formularios select {
+  width: 90%;
+  height: 2.4rem;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  padding: 0 0 0 1rem;
+  margin-left: 4.6%;
+}
+
+.formularios textarea
+{
+    padding: 1rem 1rem 1rem 1rem;
+    margin-left: 4.6%;
+    margin-top: 2%;
+    font-size: 14px;
+    font-family: 'Ubuntu', 'Verdana';
+    outline: none;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-bottom: 5%;
+    width: 90%;
+}
+
+.formularios p {
+    width: 90%;
+    text-align: left;
+    color: #000;
+    font-size: 1rem;
+    margin-top: 2rem;
+    margin-left: 4.6%;
+}
+
+.formularios button {
+    width: 50%;
+    height: 50px;
+    background: #104170;
+    box-sizing: border-box;
+    border-radius: 50px;
+    margin-left: 23%;
+    margin-bottom: 3%;
+    margin-top: 3%;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-family: 'Verdana';
+    outline: none;
+    cursor: pointer;
+}
+
+.formularios button:hover {
+    background: #869DAD;
+}
+/*----DIV PARA PADRONIZAÇÃO DOS FORMULÁRIOS (COMO FORMS DE CADASTRO) -------*/
+
+/*----- A TABELA DE RELATÓRIO É CONFIGURADA -----*/
+.tabs {
+  margin-top: 2%;
+  width:95%;
+  display:inline-block;
+  margin-left: 2%;
+  height: auto;
+}
+ 
+/*----- Tab Links -----*/
+
+.tab-links:after {
+  display:block;
+  clear:both;
+  content:'';
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+}
+ 
+    .tab-links li {
+        margin:0px 5px;
+        float:left;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+        list-style:none;
+    }
+ 
+        .tab-links a {
+            padding:1rem 1rem;
+            display:inline-block;
+            border-radius:3px 3px 0px 0px;
+            font-size:16px;
+            font-weight:600;
+            color:#4c4c4c;
+            transition:all linear 0.15s;
+        }
+ 
+        .tab-links a:hover {
+            background:#324252;
+            text-decoration:none;
+        }
+ 
+    .tab-links li.active a,.tab-links li.active, .tab-links a:hover {
+        background:#2E2E2E;
+        color:#4c4c4c;
+      }
+      .tab-links li.active a, .tab-links a:hover
+      {
+        color: #ffffff;
+      }
+ 
+    /*----- Content of Tabs -----*/
+    .tab-content {
+        padding:15px;
+        border-radius:3px;
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+
+        background:#fff;
+    }
+    .tab-content h3 { font-size: 20px; font-weight: 500; color: #2E2E2E; }
+
+ 
+        .tab {
+            display:none;
+        }
+ 
+        .tab.active {
+            display:block; 
+
+        }
+/*----- A TABELA DE RELATÓRIO É CONFIGURADA -----*/
+
+/*----- AS TABELAS (RANKING, ÍNDICES) SÃO CONFIGURADAS AQUI, EXCETO A DE RELATÓRIOS -------*/
+.tabusuario
+{
+    width: 90%;
+    text-align: center;
+    border: 1px solid #143E5B;
+    border-collapse: collapse;
+}
+
+.tabusuario p {color: #2E2E2E;}
+.tabusuario th
+{
+    border: 1px solid #143E5B;
+    border-collapse: collapse;
+    text-transform: uppercase;
+    padding: 0.4rem;
+    color: #143E5B;
+}
+
+.tabusuario td
+{
+    border: 1px solid #143E5B;
+    border-collapse: collapse;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.tabusuario button
+{
+    border-radius: 50px;
+    width: 20%;
+    height: 2.3rem;
+    box-sizing: border-box;
+    border: none;
+    color: #fff;
+    background: #2E2E2E;
+    font-size: 1rem;
+    font-family: 'Ubuntu', 'Verdana';
+}
+
+
+.tabusuario button:hover {
+    background: #869DAD;
+}
+/*----- AS TABELAS (RANKING, ÍNDICES) SÃO CONFIGURADAS AQUI, EXCETO A DE RELATÓRIOS -------*/
+
+#overlay {
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    width:100%;
+    height:100%;
+    z-index:998;
+    background-color: Black;
+    opacity: .5;
+    display: none;
+}
