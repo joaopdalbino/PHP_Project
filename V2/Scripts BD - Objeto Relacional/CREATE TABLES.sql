@@ -1,8 +1,8 @@
 CREATE TYPE Tipo_ADM AS ENUM ('Ambulancia', 'Policia', 'Administrador');
 
-CREATE TYPE Tipo_Ambulancia AS ENUM ('Acidente', 'Ocorrencia');
+CREATE TYPE Tipo_Ambulancia AS ENUM ('Acidente', 'Ocorrencia', 'Furto', 'Roubo', 'Agressão');
 
-CREATE TYPE Tipo_Ocorrencia AS ENUM ('Furto', 'Roubo', 'Agressão');
+CREATE TYPE Tipo_Ocorrencia AS ENUM ('Furto', 'Roubo', 'Assédio Sexual', 'Assédio Moral');
 
 CREATE TABLE solicitante(
    	CPF	VARCHAR (11) NOT NULL PRIMARY KEY,

@@ -28,3 +28,15 @@
 	    
 	    Tipo Tipo_adm
 	);
+
+
+# ALTERAÇÃO EM TYPES
+	
+	# ADICIONANDO ELEMENTOS
+	ALTER TYPE Tipo_Ambulancia ADD VALUE 'Furto';
+	ALTER TYPE Tipo_Ambulancia ADD VALUE 'Roubo';
+	ALTER TYPE Tipo_Ambulancia ADD VALUE 'Agressão';
+
+	# ADICIONAR A TIPO OCORRÊNCIA
+	ALTER TYPE Tipo_Ocorrencia ADD VALUE 'Assédio Sexual';
+	ALTER TYPE Tipo_Ocorrencia ADD VALUE 'Assédio Moral';

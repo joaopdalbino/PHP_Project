@@ -5,15 +5,6 @@
 		Checa_Solicitante($cpf, $nome, $rg, $telefone);
 		$id_endereco = Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado);
 		$data_envio = date("Y-m-d H:i:s");
-		if($tipo == 0){
-			$tipo = "Furto";
-		}
-		if($tipo == 1){
-			$tipo = "Roubo";
-		}
-		if($tipo == 2){
-			$tipo = "Agressão";
-		}
 		$insere = "INSERT INTO ocorrencia (CPF, Tipo, Cod_Endereco, Data_Envio, Status, Descricao) VALUES ('".$cpf."', '".$tipo."', '".$id_endereco."', '".$data_envio."', '0', '".$descricao."')";
 		pg_query($con, $insere) or die(pg_last_error($con));
 		$numero_bo = Pega_NumBO($cpf, $id_endereco);
@@ -26,12 +17,10 @@
 		Checa_Solicitante($cpf, $nome, $rg, $telefone);
 		$id_endereco = Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado);
 		$data_envio = date("Y-m-d H:i:s");
-		if($tipo == 0){
-			$tipo = "Acidente";
-		}
-		if($tipo == 1){
-			$tipo = "Ocorrencia";
-		}
+
+		print_r($tipo);
+
+
 		$insere = "INSERT INTO Emergencia (CPF, Cod_Endereco, Tipo, Data_Envio, Status, Descricao) VALUES ('".$cpf."', '".$id_endereco."','".$tipo."', '".$data_envio."', '0', '".$descricao."')";
 		pg_query($con, $insere) or die(pg_last_error($con));
 	}
@@ -51,8 +40,8 @@
 
 	function Pega_NumBO($cpf, $id_endereco){
 		include "db.php";
-		$sql = "SELECT Cod_Ocorrencia FROM ocorrencia WHERE CPF = '".$cpf."' AND Cod_Endereco = '".$id_endereco."'";
-		$query = pg_query($con, $sql) or die(pg_last_error($con));
+		$seleciona = "SELECT Cod_Ocorrencia FROM ocorrencia WHERE CPF = '".$cpf."' AND Cod_Endereco = '".$id_endereco."'";
+		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 		$campo = pg_fetch_object($query);
 		$id_bo = $campo->cod_ocorrencia;
 		return $id_bo;
@@ -93,8 +82,8 @@
 			if($existe == 0){
 				return;
 			}
-			$Numero[1] = $campo->cod_Ocorrencia;
-			$Data[1] = $campo->data_Envio;
+			$Numero[1] = $campo->cod_ocorrencia;
+			$Data[1] = $campo->data_envio;
 			$Status[1] = $campo->status;
 			$cont = 2;
 		}
@@ -105,12 +94,12 @@
 			if($parametro == "geral"){
 				$seleciona = "SELECT * FROM ocorrencia ORDER BY Data_Envio DESC, Status";
 			}
-			$query = pg_query($con, $sql) or die(pg_last_error($con));
+			$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 			$cont = 1;
 			while($campo = pg_fetch_array($query)){
-				$Numero[$cont] = $campo['Cod_Ocorrencia'];
-				$Data[$cont] = $campo['Data_Envio'];
-				$Status[$cont] = $campo['Status'];
+				$Numero[$cont] = $campo['cod_ocorrencia'];
+				$Data[$cont] = $campo['data_envio'];
+				$Status[$cont] = $campo['status'];
 				$cont++;
 			}
 		}
@@ -145,36 +134,41 @@
 	}
 
 	function Elenca_Emergencias($parametro){
+
+		$ambulancia = array('Acidente', 'Ocorrencia');
+		$policia = array('Furto', 'Roubo', 'Agressão');
+		$bo = array('Assédio Sexual', 'Assédio Moral');
+
 		switch ($parametro) {
 			case 0:
 				$seleciona = "SELECT * FROM emergencia ORDER BY Data_Envio DESC, Status";
 				break;
 			
 			case 1:
-				$seleciona = "SELECT * FROM emergencia WHERE Tipo = '0' ORDER BY Data_Envio DESC, Status";
-				break;
-
-			case 2:
-				$seleciona = "SELECT * FROM emergencia WHERE Tipo = '1' ORDER BY Data_Envio DESC, Status";
+				$seleciona = "SELECT * FROM emergencia WHERE tipo = 'Acidente' OR tipo = 'Ocorrencia' ORDER BY Data_Envio DESC, Status";
 				break;
 		}
 		include "db.php";		
 		$numero[] = ''; $Data[] = ''; $Status[] = '';
-		$query = pg_query($con, $sql) or die(pg_last_error($con));
+		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 		$cont = 1;
 		while($campo = pg_fetch_array($query)){
-			$Numero[$cont] = $campo['Cod_Emergencia'];
-			$Tipo[$cont] = $campo['Tipo'];
-			$Data[$cont] = $campo['Data_Envio'];
-			$Status[$cont] = $campo['Status'];
+			$Numero[$cont] = $campo['cod_emergencia'];
+			$Tipo[$cont] = $campo['tipo'];
+			$Data[$cont] = $campo['data_envio'];
+			$Status[$cont] = $campo['status'];
 			$cont++;
 		}
 		$cont--;
+
 		for ($i=1; $i <= $cont; $i++) { 
-			if($Tipo[$i] == 1){
-				$Emergencia = "Polícia";
-			}else{
-				$Emergencia = "Ambulância";
+		
+			if(in_array($Tipo[$i], $ambulancia)){
+				$Emergencia = 'Ambulância';
+			}
+
+			if(in_array($Tipo[$i], $policia)){
+				$Emergencia = 'Polícia';
 			}
 
 			switch ($Status[$i]) {
@@ -230,8 +224,8 @@
 			if($Status < 2){
 				$Status++;
 			}
-			$sql = "UPDATE emergencia SET Status = '".$Status."' WHERE Cod_Emergencia = '".$input."'";
-			$query = pg_query($con, $sql) or die(pg_last_error($con));
+			$seleciona = "UPDATE emergencia SET Status = '".$Status."' WHERE Cod_Emergencia = '".$input."'";
+			$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 
 		}
 		if($tipo == "Ocorrência"){

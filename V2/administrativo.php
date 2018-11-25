@@ -103,7 +103,7 @@
                         <th>Status</th>
                         <th>Mudar Status</th>
                       </tr>
-                      <?php Elenca_Emergencias(2); ?>
+                      <?php Elenca_BO("geral", 0); ?>
                     </table>
             	   </div>
             	</div>
