@@ -1,46 +1,40 @@
 <?php
 
-	function Insere_BO($tipo, $logradouro, $numero, $bairro, $complemento, $cidade, $estado, $descricao, $nome, $rg, $cpf, $telefone){
-		include "db.php";
-		Checa_Solicitante($cpf, $nome, $rg, $telefone);
-		$id_endereco = Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado);
-		$data_envio = date("Y-m-d H:i:s");
-		$insere = "INSERT INTO ocorrencia (CPF, Tipo, Cod_Endereco, Data_Envio, Status, Descricao) VALUES ('".$cpf."', '".$tipo."', '".$id_endereco."', '".$data_envio."', '0', '".$descricao."')";
-		pg_query($con, $insere) or die(pg_last_error($con));
-		$numero_bo = Pega_NumBO($cpf, $id_endereco);
-		var_dump($numero_bo);
-		header("Location: mostra_boletim.php?numero_bo=".$numero_bo);
+	function insere_ocorrencia($ocorrencia, $string){
+		
+		$query = "INSERT INTO ".$ocorrencia." (
+					sol.CPF, sol.Nome, sol.RG, sol.Telefone,
+		     		en.Logradouro, en.Numero, en.Bairro, en.Cidade, en.Estado, 
+		     		tipo, en.Complemento, Data_Envio, Status, Descricao
+		    ) 
+			VALUES 
+			(
+				'".$string['cpf']."','".$string['nome']."','".$string['rg']."','".$string['telefone']."', 
+		    	'".$string['logradouro']."', '".$string['numero']."', '".$string['bairro']."', '".$string['cidade']."', '".$string['estado']."', 
+		     	'".$string['tipo']."','".$string['complemento']."', NOW(), 0, '".$string['desc']."'
+		    )";
+
+		return $query;
 	}
 
-	function Insere_Emergencia($cpf, $nome, $rg, $telefone, $logradouro, $numero, $bairro, $complemento, $cidade, $estado, $tipo, $descricao){
+
+	function Insere_BO($params){
 		include "db.php";
-		Checa_Solicitante($cpf, $nome, $rg, $telefone);
-		$id_endereco = Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado);
-		$data_envio = date("Y-m-d H:i:s");
-
-		print_r($tipo);
-
-
-		$insere = "INSERT INTO Emergencia (CPF, Cod_Endereco, Tipo, Data_Envio, Status, Descricao) VALUES ('".$cpf."', '".$id_endereco."','".$tipo."', '".$data_envio."', '0', '".$descricao."')";
-		pg_query($con, $insere) or die(pg_last_error($con));
+		
+		pg_query($con, insere_ocorrencia("ocorrencia", $params)) or die(pg_last_error($con));
+		header("Location: mostra_boletim.php?numero_bo=".Pega_NumBO($params['cpf'], $params['logradouro']));
 	}
 
-	function Insere_Endereco($logradouro, $numero, $bairro, $complemento, $cidade, $estado){
+	function Insere_Emergencia($params){
 		include "db.php";
-		$insere = "INSERT INTO endereco (Logradouro, Numero, Bairro, Cidade, Estado, Complemento) VALUES ('".$logradouro."', '".$numero."', '".$bairro."', '".$cidade."', '".$estado."', '".$complemento."')";
-		pg_query($con, $insere) or die(pg_last_error($con));
 
-		$seleciona = "SELECT Cod_Endereco FROM endereco WHERE Logradouro = '".$logradouro."' AND Numero = '".$numero."' AND Bairro = '".$bairro."' AND Cidade = '".$cidade."' AND Estado = '".$estado."' AND Complemento = '".$complemento."' ORDER BY Cod_Endereco DESC";
-		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
-		$campo = pg_fetch_object($query);
-		$id_endereco = $campo->cod_endereco;
-
-		return $id_endereco;
+		pg_query($con, insere_ocorrencia("emergencia", $params)) or die(pg_last_error($con));
 	}
 
-	function Pega_NumBO($cpf, $id_endereco){
+
+	function Pega_NumBO($cpf, $logradouro){
 		include "db.php";
-		$seleciona = "SELECT Cod_Ocorrencia FROM ocorrencia WHERE CPF = '".$cpf."' AND Cod_Endereco = '".$id_endereco."'";
+		$seleciona = "SELECT Cod_Ocorrencia FROM ocorrencia WHERE (sol).CPF = '".$cpf."' AND (en).Logradouro = '".$logradouro."'";
 		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 		$campo = pg_fetch_object($query);
 		$id_bo = $campo->cod_ocorrencia;
@@ -60,16 +54,6 @@
 		}
 	}
 
-	function Checa_Solicitante($cpf, $nome, $rg, $telefone){
-		include "db.php";
-		$select = "SELECT * FROM solicitante WHERE cpf='".$cpf."'";
-		$consulta = pg_query($con, $select);
-		$existe = pg_num_rows($consulta);
-		if($existe == 0){
-			$select = "INSERT INTO solicitante (CPF, Nome, RG, Telefone) VALUES ('".$cpf."','".$nome."','".$rg."', '".$telefone."') ";
-			pg_query($con, $select) or die(pg_last_error($con));
-		}
-	}
 
 	function Elenca_BO($parametro, $input){
 		include "db.php";
@@ -89,7 +73,7 @@
 		}
 		else{
 			if($parametro == "cpf"){
-				$seleciona = "SELECT * FROM ocorrencia INNER JOIN solicitante ON ocorrencia.CPF = solicitante.CPF WHERE solicitante.CPF = '".$input."'";
+				$seleciona = "SELECT * FROM ocorrencia WHERE (sol).CPF = '".$input."'";
 			}
 			if($parametro == "geral"){
 				$seleciona = "SELECT * FROM ocorrencia ORDER BY Data_Envio DESC, Status";
@@ -147,6 +131,10 @@
 			case 1:
 				$seleciona = "SELECT * FROM emergencia WHERE tipo = 'Acidente' OR tipo = 'Ocorrencia' ORDER BY Data_Envio DESC, Status";
 				break;
+
+			case 2:
+				$seleciona = "SELECT * FROM emergencia WHERE tipo = 'Furto' OR tipo = 'Roubo' OR tipo = 'Agressão' ORDER BY Data_Envio DESC, Status";
+				break;
 		}
 		include "db.php";		
 		$numero[] = ''; $Data[] = ''; $Status[] = '';
@@ -199,18 +187,49 @@
 
 	function Infos_Emergencia($input){
 		include "db.php";		
-		$seleciona = "SELECT * FROM emergencia INNER JOIN solicitante ON emergencia.CPF = solicitante.CPF INNER JOIN endereco ON emergencia.Cod_Endereco = endereco.Cod_Endereco WHERE emergencia.Cod_Emergencia = '".$input."'";
+		$seleciona = "SELECT * FROM emergencia WHERE emergencia.Cod_Emergencia = '".$input."'";
 		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 		$campo= pg_fetch_object($query);
-		return $campo;
+		
+		$seleciona = "SELECT (en).* FROM emergencia WHERE emergencia.Cod_Emergencia = '".$input."'";
+		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
+		$en = pg_fetch_object($query);
+
+		$seleciona = "SELECT (sol).* FROM emergencia WHERE emergencia.Cod_Emergencia = '".$input."'";
+		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
+		$sol = pg_fetch_object($query);
+
+		$string = [
+			'campo' => $campo,
+			'en' => $en,
+			'sol' => $sol
+		];
+
+		return $string;
+
 	}
 
 	function Infos_BO($input){
 		include "db.php";		
-		$seleciona = "SELECT * FROM ocorrencia INNER JOIN solicitante ON ocorrencia.CPF = solicitante.CPF INNER JOIN endereco ON ocorrencia.Cod_Endereco = endereco.Cod_Endereco WHERE ocorrencia.Cod_Ocorrencia = '".$input."'";
+		$seleciona = "SELECT * FROM ocorrencia WHERE ocorrencia.Cod_Ocorrencia = '".$input."'";
 		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
 		$campo = pg_fetch_object($query);
-		return $campo;
+
+		$seleciona = "SELECT (en).* FROM ocorrencia WHERE ocorrencia.Cod_Ocorrencia = '".$input."'";
+		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
+		$en = pg_fetch_object($query);
+
+		$seleciona = "SELECT (sol).* FROM ocorrencia WHERE ocorrencia.Cod_Ocorrencia = '".$input."'";
+		$query = pg_query($con, $seleciona) or die(pg_last_error($con));
+		$sol = pg_fetch_object($query);
+
+		$string = [
+			'campo' => $campo,
+			'en' => $en,
+			'sol' => $sol
+		];
+
+		return $string;
 	}
 
 	function Muda_Status($input, $tipo){

@@ -103,7 +103,7 @@
                         <th>Status</th>
                         <th>Mudar Status</th>
                       </tr>
-                      <?php Elenca_BO("geral", 0); ?>
+                      <?php Elenca_Emergencias(2); ?>
                     </table>
             	   </div>
             	</div>
@@ -163,9 +163,9 @@
                                 </td>
                                 <td>
                                     <select name="tipo">
-                                        <option value="0">Administrador Geral</option>
-                                        <option value="1">Ambulância</option>
-                                        <option value="2">Polícia</option>
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Ambulancia">Ambulancia</option>
+                                        <option value="Policia">Policia</option>
                                     </select>
                                 </td>
                             </tr>

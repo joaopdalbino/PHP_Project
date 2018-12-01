@@ -4,9 +4,27 @@
 	include "include/topo.php";
 	$enviado = $_POST["send"];
 	$tipo = $_GET["tipo"];
+	if(!isset($tipo)){
+		header("index.php");
+	}
 	if ($enviado != ""){
 	    include "include/db_conexoes.php";
-	    Insere_Emergencia($_POST["CPF"], $_POST["nome"], $_POST["RG"], $_POST["telefone"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], $tipo, $_POST["descricao"]);
+	     $var = [
+			'cpf' => $_POST["CPF"],
+			'nome' => $_POST["nome"],
+			'tipo' => $tipo,
+			'logradouro' => $_POST["logradouro"],
+			'numero' => $_POST["numero"],
+			'bairro' => $_POST["bairro"],
+			'complemento' => $_POST["complemento"],
+			'cidade' => $_POST["cidade"],
+			'estado' => $_POST["estado"],
+			'boletim' => $_POST["boletim"],
+			'rg' => $_POST["RG"],
+			'telefone' => $_POST["telefone"],
+			'desc' => $_POST["telefone"]
+		];
+		Insere_Emergencia($var);
 	}
 ?>
 <body>
@@ -61,7 +79,6 @@
 		            </select>
 		            <textarea name="descricao" id="descricao" rows="10" cols="50" placeholder="Descrição"></textarea>
 		            <button name="send" type="submit" id="send" value="Send">Salvar</button>
-		            <button name="voltar" onclick="volta()" id="voltar" value="voltar">Voltar</button>
 		        </td>
 		      </tr>
 		    </table>
@@ -101,10 +118,11 @@
 	    });
 	});
 
-	function volta(){
-		$('#form_acidente').css("display", "none");
-		$('.menu_central').css("display", "block");
+	function voltar(){
+		location.href="index.php";
+
 	}
+
 </script>
 
 </html>

@@ -5,7 +5,22 @@
 	$enviado = $_POST["send"];
 	if ($enviado != ""){
 	    include "include/db_conexoes.php";
-	    Insere_BO($_POST["categoria"], $_POST["logradouro"], $_POST["numero"], $_POST["bairro"], $_POST["complemento"], $_POST["cidade"], $_POST["estado"], $_POST["boletim"], $_POST["nome"], $_POST["RG"], $_POST["CPF"], $_POST["telefone"]);
+	    $var = [
+			'cpf' => $_POST["CPF"],
+			'nome' => $_POST["nome"],
+			'tipo' => $_POST["categoria"],
+			'logradouro' => $_POST["logradouro"],
+			'numero' => $_POST["numero"],
+			'bairro' => $_POST["bairro"],
+			'complemento' => $_POST["complemento"],
+			'cidade' => $_POST["cidade"],
+			'estado' => $_POST["estado"],
+			'boletim' => $_POST["boletim"],
+			'rg' => $_POST["RG"],
+			'telefone' => $_POST["telefone"],
+			'desc' => $_POST["boletim"]
+		];
+	    Insere_BO($var);
 	}
 ?>
 <body>

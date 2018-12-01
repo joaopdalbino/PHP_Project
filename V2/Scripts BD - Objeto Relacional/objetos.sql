@@ -21,14 +21,16 @@
 	## EXEMPLO: select da função seleciona_administrativo 
 	select * from seleciona_administrativo('adm', '123')
 
-# CRIA ACESSOS
+# CRIA ACESSOS USUÁRIOS
 	
-	# CRIA OBJETO
-	CREATE TYPE insere_solicitante AS (
-	    
-	    Tipo Tipo_adm
-	);
-
+	INSERT INTO emergencia 
+		(sol.CPF, sol.Nome, sol.RG, sol.Telefone,
+	     en.Logradouro, en.Numero, en.Bairro, en.Cidade, en.Estado, 
+	     tipo, en.Complemento, Data_Envio, Status, Descricao) 
+	VALUES 
+		('46045291970','João','41812165', '32035785', 
+	     'Rua Rubens Arruda', '19125', 'Jardim Estoril', 'Bauru', 'SP', 
+	     'Acidente','', NOW(), 0, 'TESTE');
 
 # ALTERAÇÃO EM TYPES
 	
@@ -38,5 +40,9 @@
 	ALTER TYPE Tipo_Ambulancia ADD VALUE 'Agressão';
 
 	# ADICIONAR A TIPO OCORRÊNCIA
-	ALTER TYPE Tipo_Ocorrencia ADD VALUE 'Assédio Sexual';
+	ALTER TYPE Tipo_Ocorrencia drop VALUE 'Assédio Sexual';
 	ALTER TYPE Tipo_Ocorrencia ADD VALUE 'Assédio Moral';
+
+# SELECIONA EMERGENCIA
+
+	CREATE TYPE 
