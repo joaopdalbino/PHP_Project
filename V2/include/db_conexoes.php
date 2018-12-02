@@ -54,7 +54,6 @@
 		}
 	}
 
-
 	function Elenca_BO($parametro, $input){
 		include "db.php";
 		$numero[] = ''; $Data[] = ''; $Status[] = '';
@@ -106,11 +105,23 @@
 				<tr> 
 				  <td><p>'.$Numero[$i].'</p></td>
 				  <td style="text-align: center;"><p>'.$Data[$i].'</p></td>
+				';
+
+			if ($parametro == "geral"){
+				echo '
 				  <td><a href="mostra_boletim_adm.php?numero_bo='.$Numero[$i].'"><button>Ver</button></a></td>
-				  <td><p>'.$msg.'</p></td>';
-			if($parametro == "geral"){
-				echo '<td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=bo"><button style="width: auto;">Mudar</button></a></td>';
+			';
 			}
+			else{
+				echo '
+				  <td><a href="mostra_boletim.php?numero_bo='.$Numero[$i].'"><button>Ver</button></a></td>
+			';
+			}
+			echo '
+				  <td><p>'.$msg.'</p></td>';
+					if($parametro == "geral"){
+					echo '<td><a href="mudar_status.php?numero='.$Numero[$i].'&oco=bo"><button style="width: auto;">Mudar</button></a></td>';
+					}
 				echo '
 				</tr>
 			';

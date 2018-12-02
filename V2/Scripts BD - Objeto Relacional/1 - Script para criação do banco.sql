@@ -5,19 +5,19 @@ CREATE TYPE Tipo_Ambulancia AS ENUM ('Acidente', 'Ocorrencia', 'Furto', 'Roubo',
 CREATE TYPE Tipo_Ocorrencia AS ENUM ('Furto', 'Roubo', 'Assédio Sexual', 'Assédio Moral');
 
 CREATE TYPE solicitante AS (
-   	CPF	VARCHAR (11),
-   	Nome VARCHAR(250),
-   	RG VARCHAR(10),
-   	Telefone VARCHAR(13)
+  CPF	VARCHAR (11),
+  Nome VARCHAR(250),
+  RG VARCHAR(10),
+  Telefone VARCHAR(13)
 );
 
 CREATE TYPE endereco AS (
-    Logradouro VARCHAR(250),
-    Numero INT,
-    Bairro VARCHAR(250),
-    Cidade VARCHAR(250),
-    Estado CHAR(2),
-    Complemento VARCHAR(250)
+  Logradouro VARCHAR(250),
+  Numero INT,
+  Bairro VARCHAR(250),
+  Cidade VARCHAR(250),
+  Estado CHAR(2),
+  Complemento VARCHAR(250)
 );
 
 CREATE TABLE ocorrencia (

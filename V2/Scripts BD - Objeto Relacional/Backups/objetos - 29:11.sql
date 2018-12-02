@@ -42,7 +42,3 @@
 	# ADICIONAR A TIPO OCORRÊNCIA
 	ALTER TYPE Tipo_Ocorrencia drop VALUE 'Assédio Sexual';
 	ALTER TYPE Tipo_Ocorrencia ADD VALUE 'Assédio Moral';
-
-# SELECIONA EMERGENCIA
-
-	CREATE TYPE 

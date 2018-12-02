@@ -21,7 +21,7 @@
 ?>
 <body>
 	<div id="wrap">
-		<?php include "include/menu.php"; ?>
+		<?php include "include/menu_administrativo.php"; ?>
 		<!-- FORM PARA CADASTRO BO -->
 		<div id="form_bo" class="formularios">
 				<h1>Boletim de Ocorrência</h1>
@@ -47,7 +47,7 @@
 			            	<option value=""><?php echo $campo['en']->estado; ?></option>
 			            </select>
 			            <textarea name="boletim" id="boletim" rows="10" cols="50" disabled><?php echo $campo['campo']->descricao; ?></textarea>
-			            <a href="historico_boletim.php"><button name="send">Voltar</button></a>
+			            <a href="administrativo.php"><button name="send">Voltar</button></a>
 			        </td>
 			      </tr>
 			    </table>
