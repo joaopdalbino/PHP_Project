@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	function mostra_ocorrencia(){
 		$('#tipo').val("Ocorrencia");
-		window.location.href = "emergencia.php?tipo=Ocorrência";
+		window.location.href = "emergencia.php?tipo=Ocorrencia";
 	}
 
 	function mostra_acidente(){

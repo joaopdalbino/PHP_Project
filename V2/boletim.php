@@ -18,7 +18,8 @@
 			'boletim' => $_POST["boletim"],
 			'rg' => $_POST["RG"],
 			'telefone' => $_POST["telefone"],
-			'desc' => $_POST["boletim"]
+			'desc' => $_POST["boletim"],
+			'data' => $_POST["data"]
 		];
 	    Insere_BO($var);
 	}

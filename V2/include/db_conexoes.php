@@ -2,6 +2,13 @@
 
 	function insere_ocorrencia($ocorrencia, $string){
 		
+		if($ocorrencia == "ocorrencia"){
+			$data = $string["data"];
+		}
+		else{
+			$data = "NOW()";
+		}
+
 		$query = "INSERT INTO ".$ocorrencia." (
 					sol.CPF, sol.Nome, sol.RG, sol.Telefone,
 		     		en.Logradouro, en.Numero, en.Bairro, en.Cidade, en.Estado, 
@@ -11,7 +18,7 @@
 			(
 				'".$string['cpf']."','".$string['nome']."','".$string['rg']."','".$string['telefone']."', 
 		    	'".$string['logradouro']."', '".$string['numero']."', '".$string['bairro']."', '".$string['cidade']."', '".$string['estado']."', 
-		     	'".$string['tipo']."','".$string['complemento']."', NOW(), 0, '".$string['desc']."'
+		     	'".$string['tipo']."','".$string['complemento']."', '".$data."', 0, '".$string['desc']."'
 		    )";
 
 		return $query;
